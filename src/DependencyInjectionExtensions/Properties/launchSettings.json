@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DependencyInjectionExtensions": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\DependencyInjectionExtensions.TestClass\\DependencyInjectionExtensions.TestClass.csproj"
+    }
+  }
+}
