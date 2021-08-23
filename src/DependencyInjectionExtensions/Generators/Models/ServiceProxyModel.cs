@@ -4,46 +4,41 @@ using System.Text;
 namespace DependencyInjectionExtensions.Generators.Models
 {
     /// <summary>
-    /// 
+    ///     Proxy model that represents a service to be added into the Dependency Injection container
     /// </summary>
     public class ServiceProxyModel
     {
         /// <summary>
-        /// 
+        ///     Assembly namespace where the service is located
         /// </summary>
-        public string Namespace { get; set; }
+        public string AssemblyNamespace { get; set; }
 
         /// <summary>
-        /// 
+        ///     Service class name
         /// </summary>
         public string ClassName { get; set; }
 
         /// <summary>
-        /// 
+        ///     Service interface name
         /// </summary>
         public string InterfaceName { get; set; }
 
         /// <summary>
-        /// 
+        ///     Lifetime the service should have into the Dependency Injection
         /// </summary>
         public ServiceLifetime ServiceLifetime { get; set; }
 
         /// <summary>
-        /// 
+        ///     Is the service an open generic
         /// </summary>
         public bool IsOpenGeneric { get; set; }
 
         /// <summary>
         ///     <see cref="ServiceProxyModel"/> ctor
         /// </summary>
-        /// <param name="namespace"></param>
-        /// <param name="className"></param>
-        /// <param name="interfaceName"></param>
-        /// <param name="serviceLifetime"></param>
-        /// <param name="isOpenGeneric"></param>
-        public ServiceProxyModel(string @namespace, string className, string interfaceName, ServiceLifetime serviceLifetime, bool isOpenGeneric)
+        public ServiceProxyModel(string assemblyNamespace, string className, string interfaceName, ServiceLifetime serviceLifetime, bool isOpenGeneric)
         {
-            Namespace = @namespace;
+            AssemblyNamespace = assemblyNamespace;
             ClassName = className;
             InterfaceName = interfaceName;
             ServiceLifetime = serviceLifetime;
@@ -51,22 +46,21 @@ namespace DependencyInjectionExtensions.Generators.Models
         }
 
         /// <summary>
-        /// 
+        ///     Creates the string to be appended to the generated <see cref="IServiceCollection"/> extension method
         /// </summary>
-        /// <returns></returns>
         public string GetDependencyInjectionEntry()
         {
             bool isInterfaceDeclared = !string.IsNullOrEmpty(InterfaceName);
 
             StringBuilder stringBuilder = new($"services.Add{ServiceLifetime}");
 
-            string asdad = isInterfaceDeclared
+            string typeDeclaration = isInterfaceDeclared
                 ? $"{(IsOpenGeneric ? $"typeof({InterfaceName.Replace("<T>", "<>")}), typeof({ClassName.Replace("<T>", "<>")})" : $"{InterfaceName}, {ClassName}")}"
                 : $"{(IsOpenGeneric ? $"typeof({ClassName.Replace("<T>", "<>")})" : $"{ClassName}")}";
 
             return stringBuilder
                 .Append(IsOpenGeneric ? "(" : "<")
-                .Append(asdad)
+                .Append(typeDeclaration)
                 .Append(IsOpenGeneric ? ");" : ">();")
                 .AppendLine()
                 .ToString();

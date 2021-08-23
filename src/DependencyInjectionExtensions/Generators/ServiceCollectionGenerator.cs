@@ -11,19 +11,20 @@ using System.Text;
 namespace DependencyInjectionExtensions.Generators
 {
     /// <summary>
-    /// 
+    ///     <see cref="ISourceGenerator"/> for <see cref="IServiceCollection"/>.
+    ///     Generates an extension method that will add Services and Repositories to the Dependency Injection container
     /// </summary>
     [Generator]
     public class ServiceCollectionGenerator : ISourceGenerator
     {
-        public const string ServiceDescriptorAttribute = "ServiceDescriptorAttribute";
+        public const string ServiceDescriptorAttributeName = "ServiceDescriptorAttribute";
 
         public void Initialize(GeneratorInitializationContext context)
         {
-            context.RegisterForPostInitialization(ctx => ctx.AddSource($"{ServiceDescriptorAttribute}.generated.cs", 
-                EmbeddedResourceHelper.GetEmbeddedResource($"Attributes.{ServiceDescriptorAttribute}.cs")));
+            context.RegisterForPostInitialization(ctx => ctx.AddSource($"{ServiceDescriptorAttributeName}.generated.cs",
+                EmbeddedResourceHelper.GetEmbeddedResource($"Attributes.{ServiceDescriptorAttributeName}.cs")));
 
-            context.RegisterForSyntaxNotifications(() => new AttributeSyntaxReceiver(ServiceDescriptorAttribute));
+            context.RegisterForSyntaxNotifications(() => new AttributeSyntaxReceiver(ServiceDescriptorAttributeName));
         }
 
         public void Execute(GeneratorExecutionContext context)
@@ -39,15 +40,15 @@ namespace DependencyInjectionExtensions.Generators
 
                 if (type == null) { continue; }
 
-                ServiceLifetime serviceLifetime = type.GetAttributeByName(ServiceDescriptorAttribute)
+                ServiceLifetime serviceLifetime = type.GetAttributeByName(ServiceDescriptorAttributeName)
                     .GetConstructorArgument<ServiceLifetime>();
 
-                INamedTypeSymbol typePropertyAsTypeSymbol = type.GetAttributeByName(ServiceDescriptorAttribute)
+                INamedTypeSymbol typePropertyAsTypeSymbol = type.GetAttributeByName(ServiceDescriptorAttributeName)
                     .GetNamedArgument<INamedTypeSymbol>("Type");
 
-                services.Add(new ServiceProxyModel(type.GetAssemblyName() + ".Extensions", 
-                    type.ToString(), 
-                    typePropertyAsTypeSymbol?.ToString(), 
+                services.Add(new ServiceProxyModel(type.GetAssemblyName(),
+                    type.ToString(),
+                    typePropertyAsTypeSymbol?.ToString(),
                     serviceLifetime,
                     typePropertyAsTypeSymbol?.IsUnboundGenericType ?? ((INamedTypeSymbol)type).IsGenericType));
             }
@@ -57,21 +58,22 @@ namespace DependencyInjectionExtensions.Generators
 
         private static SourceText GenerateServiceCollectionExtensionsClass(IEnumerable<ServiceProxyModel> services)
         {
-            var servicesGroupedByNamespace = services.GroupBy(x => x.Namespace);
+            var servicesGroupedByNamespace = services.GroupBy(x => x.AssemblyNamespace);
 
             StringBuilder stringBuilder = new();
 
-            //internal static IServiceCollection RegisterServices(this IServiceCollection services) => services.RegisterServicesFor{ group.Key} ();?
             foreach (var group in servicesGroupedByNamespace)
             {
-                string stringResult = 
+                string stringResult =
 $@"using Microsoft.Extensions.DependencyInjection;
 
-namespace {group.Key}
+namespace {group.Key}.Extensions
 {{
     public static partial class ServiceCollectionExtensions
     {{
-        public static IServiceCollection RegisterServicesFor(this IServiceCollection services)
+        internal static IServiceCollection RegisterServices(this IServiceCollection services) => services.RegisterServicesFor{group.Key.ToSafeIdentifier()}();
+        
+        public static IServiceCollection RegisterServicesFor{group.Key.ToSafeIdentifier()}(this IServiceCollection services)
         {{
             {GetMethodBody(group.ToList())}
 

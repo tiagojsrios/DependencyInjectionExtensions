@@ -1,24 +1,34 @@
-﻿namespace DependencyInjectionExtensions.Helpers
+﻿using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace DependencyInjectionExtensions.Helpers
 {
     /// <summary>
-    /// 
+    ///     <see cref="string"/> extension methods
     /// </summary>
-    public static class StringExtensions
+    internal static class StringExtensions
     {
         /// <summary>
-        /// 
+        ///     Creates a safe identifier from <paramref name="value"/> that can be used, for example, on a method name
         /// </summary>
-        /// <param name="str"></param>
-        /// <param name="suffix"></param>
-        /// <returns></returns>
-        public static string EnsureEndsWith(this string str, string suffix)
+        public static string ToSafeIdentifier(this string value)
         {
-            return str.EndsWith(suffix) ? str : str + suffix;
+            // Clean special chars
+            value = Regex.Replace(value, "[^a-zA-Z0-9]+", " ", RegexOptions.Compiled).Trim();
+
+            // Remove spaces
+            value = value.Replace(" ", "");
+
+            // Identifiers can't start with 0-9
+            return char.IsDigit(value.FirstOrDefault()) ? $"_{value}" : value;
         }
 
-        public static string ConditionalReplace(this string str, string oldValue, string newValue, bool condition)
+        /// <summary>
+        ///     Checks whether <paramref name="value"/> ends with <paramref name="suffix"/>. If not, the method will append it.
+        /// </summary>
+        public static string EnsureEndsWith(this string value, string suffix)
         {
-            return condition ? str.Replace(oldValue, newValue) : str;
+            return value.EndsWith(suffix) ? value : value + suffix;
         }
     }
 }
