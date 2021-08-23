@@ -1,7 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Text;
-using DependencyInjectionExtensions.Helpers;
-using Microsoft.CodeAnalysis;
 
 namespace DependencyInjectionExtensions.Generators.Models
 {
@@ -28,7 +26,7 @@ namespace DependencyInjectionExtensions.Generators.Models
         /// <summary>
         /// 
         /// </summary>
-        public string ServiceLifetime { get; set; }
+        public ServiceLifetime ServiceLifetime { get; set; }
 
         /// <summary>
         /// 
@@ -43,7 +41,7 @@ namespace DependencyInjectionExtensions.Generators.Models
         /// <param name="interfaceName"></param>
         /// <param name="serviceLifetime"></param>
         /// <param name="isOpenGeneric"></param>
-        public ServiceProxyModel(string @namespace, string className, string interfaceName, string serviceLifetime, bool isOpenGeneric)
+        public ServiceProxyModel(string @namespace, string className, string interfaceName, ServiceLifetime serviceLifetime, bool isOpenGeneric)
         {
             Namespace = @namespace;
             ClassName = className;

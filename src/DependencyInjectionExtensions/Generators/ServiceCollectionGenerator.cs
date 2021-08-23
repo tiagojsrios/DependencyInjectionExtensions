@@ -1,11 +1,12 @@
-﻿using DependencyInjectionExtensions.Helpers;
+﻿using DependencyInjectionExtensions.Generators.Models;
+using DependencyInjectionExtensions.Helpers;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Text;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DependencyInjectionExtensions.Generators.Models;
 
 namespace DependencyInjectionExtensions.Generators
 {
@@ -38,8 +39,8 @@ namespace DependencyInjectionExtensions.Generators
 
                 if (type == null) { continue; }
 
-                string serviceLifetime = type.GetAttributeByName(ServiceDescriptorAttribute)
-                    .GetConstructorArgument<string>();
+                ServiceLifetime serviceLifetime = type.GetAttributeByName(ServiceDescriptorAttribute)
+                    .GetConstructorArgument<ServiceLifetime>();
 
                 INamedTypeSymbol typePropertyAsTypeSymbol = type.GetAttributeByName(ServiceDescriptorAttribute)
                     .GetNamedArgument<INamedTypeSymbol>("Type");
@@ -60,6 +61,7 @@ namespace DependencyInjectionExtensions.Generators
 
             StringBuilder stringBuilder = new();
 
+            //internal static IServiceCollection RegisterServices(this IServiceCollection services) => services.RegisterServicesFor{ group.Key} ();?
             foreach (var group in servicesGroupedByNamespace)
             {
                 string stringResult = 
@@ -69,7 +71,7 @@ namespace {group.Key}
 {{
     public static partial class ServiceCollectionExtensions
     {{
-        public static IServiceCollection AddDomainServicesAndRepositories(this IServiceCollection services)
+        public static IServiceCollection RegisterServicesFor(this IServiceCollection services)
         {{
             {GetMethodBody(group.ToList())}
 

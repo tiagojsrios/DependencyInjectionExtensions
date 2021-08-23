@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DependencyInjectionExtensions.Attributes
 {
@@ -11,7 +12,7 @@ namespace DependencyInjectionExtensions.Attributes
         /// <summary>
         ///     Lifetime of the service where this attribute is being added
         /// </summary>
-        public string ServiceLifetime { get; }
+        public ServiceLifetime ServiceLifetime { get; }
 
         /// <summary>
         ///     Interface implementation of the service
@@ -22,7 +23,7 @@ namespace DependencyInjectionExtensions.Attributes
         ///     <see cref="ServiceDescriptorAttribute"/> ctor
         /// </summary>
         /// <param name="serviceLifetime"></param>
-        public ServiceDescriptorAttribute(string serviceLifetime)
+        public ServiceDescriptorAttribute(ServiceLifetime serviceLifetime)
         {
             ServiceLifetime = serviceLifetime;
         }

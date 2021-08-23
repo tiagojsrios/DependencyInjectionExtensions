@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace DependencyInjectionExtensions.TestClass.Repositories
 {
-    [DependencyInjectionExtensions.Attributes.ServiceDescriptor("Singleton")]
+    [DependencyInjectionExtensions.Attributes.ServiceDescriptor(ServiceLifetime.Singleton)]
     public class NoInterfaceBaseRepository
     {
     }

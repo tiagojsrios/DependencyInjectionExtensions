@@ -1,7 +1,8 @@
 ﻿using DependencyInjectionExtensions.TestClass.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DependencyInjectionExtensions.TestClass.Repositories
 {
-    [DependencyInjectionExtensions.Attributes.ServiceDescriptor("Transient", Type = typeof(IGenericTypedRepository<string>))]
+    [DependencyInjectionExtensions.Attributes.ServiceDescriptor(ServiceLifetime.Transient, Type = typeof(IGenericTypedRepository<string>))]
     public class GenericTypedRepository : IGenericTypedRepository<string> { }
 }
