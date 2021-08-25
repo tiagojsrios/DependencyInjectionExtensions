@@ -2,7 +2,7 @@
   "profiles": {
     "DependencyInjectionExtensions": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\DependencyInjectionExtensions.TestClass\\DependencyInjectionExtensions.TestClass.csproj"
+      "targetProject": "..\\DependencyInjectionExtensions.Sample\\DependencyInjectionExtensions.Sample.csproj"
     }
   }
 }

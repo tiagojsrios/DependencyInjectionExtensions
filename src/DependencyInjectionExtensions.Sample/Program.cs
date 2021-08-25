@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DependencyInjectionExtensions.TestClass
+namespace DependencyInjectionExtensions.Sample
 {
     class Program
     {
