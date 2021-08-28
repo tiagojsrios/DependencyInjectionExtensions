@@ -52,20 +52,34 @@ namespace DependencyInjectionExtensions.Generators
             context.AddSource("ServiceCollectionExtensions.generated.cs", GenerateServiceCollectionExtensionsClass(services));
         }
 
-        private static IEnumerable<(string @interface, bool isOpenGeneric)> GetInterfaceImplementations(ITypeSymbol attributeAsTypeSymbol)
+        private static IEnumerable<(string @interface, bool isOpenGeneric)> GetInterfaceImplementations(ITypeSymbol type)
         {
-            IEnumerable<(string @interface, bool isOpenGeneric)> typesToRegister = attributeAsTypeSymbol
-                .AllInterfaces
-                .Select(x => (x.ToString(), x.IsGenericType));
+            var typesToRegister = new List<(string @interface, bool isOpenGeneric)>();
 
-            List<INamedTypeSymbol> excludedTypes = attributeAsTypeSymbol
-                .GetAttributeByName(ServiceDescriptorAttributeName)
-                .GetArrayNamedArgument<INamedTypeSymbol>("ExcludedTypes")?
+            var typeInterfaces = type
+                .AllInterfaces
+                .Select(x => (x.ToString(), x.IsGenericType))
                 .ToList();
 
-            if (excludedTypes is { Count: > 0 })
+            foreach (var attr in type.GetAttributes())
             {
-                typesToRegister = typesToRegister.Except(excludedTypes.Select(x => (x?.ToString(), x?.IsUnboundGenericType ?? false)));
+                INamedTypeSymbol typeAsNamedTypeSymbol = attr.GetNamedArgument<INamedTypeSymbol>("Type");
+
+                if (typeAsNamedTypeSymbol != null)
+                {
+                    // Give priority when the developer specified the type to be registered
+                    typesToRegister.Add((typeAsNamedTypeSymbol.ToString(), typeAsNamedTypeSymbol.IsUnboundGenericType));
+                    continue;
+                }
+
+                List<INamedTypeSymbol> excludedTypes = attr
+                    .GetArrayNamedArgument<INamedTypeSymbol>("ExcludedTypes")?
+                    .ToList();
+
+                if (excludedTypes is { Count: > 0 })
+                {
+                    typesToRegister.AddRange(typeInterfaces.Except(excludedTypes.Select(x => (x?.ToString(), x?.IsUnboundGenericType ?? false))));
+                }
             }
 
             return typesToRegister;
@@ -89,6 +103,7 @@ namespace DependencyInjectionExtensions.Generators
 
         private static string GetClass(string @namespace, IEnumerable<ServiceProxyModel> services) =>
 $@"using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace {@namespace}.Extensions
 {{

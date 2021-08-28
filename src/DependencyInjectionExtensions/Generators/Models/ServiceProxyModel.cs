@@ -59,13 +59,13 @@ namespace DependencyInjectionExtensions.Generators.Models
                     bool isOpenGeneric = TypeInformation.IsGenericType && isInterfaceGeneric;
 
                     typeDeclaration.Add(
-                        $"services.Add{ServiceLifetime}{(isOpenGeneric ? $"(typeof({interfaceName.Replace("<T>", "<>")}), typeof({TypeInformation.Name.Replace("<T>", "<>")}));" : $"<{interfaceName}, {TypeInformation.Name}>();")}"
+                        $"services.TryAdd{ServiceLifetime}{(isOpenGeneric ? $"(typeof({interfaceName.Replace("<T>", "<>")}), typeof({TypeInformation.Name.Replace("<T>", "<>")}));" : $"<{interfaceName}, {TypeInformation.Name}>();")}"
                     );
                 }
             }
             else
             {
-                typeDeclaration.Add($"services.Add{ServiceLifetime}{(TypeInformation.IsGenericType ? $"(typeof({TypeInformation.Name.Replace("<T>", "<>")}));" : $"<{TypeInformation.Name}>();")}");
+                typeDeclaration.Add($"services.TryAdd{ServiceLifetime}{(TypeInformation.IsGenericType ? $"(typeof({TypeInformation.Name.Replace("<T>", "<>")}));" : $"<{TypeInformation.Name}>();")}");
             }
 
             return new StringBuilder()

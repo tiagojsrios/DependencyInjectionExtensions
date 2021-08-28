@@ -18,6 +18,12 @@ namespace DependencyInjectionExtensions.Helpers
         /// <summary>
         ///     Retrieves an attribute named argument based on its <paramref name="name"/>
         /// </summary>
+        public static T GetNamedArgument<T>(this AttributeData attributeData, string name)
+            => (T)attributeData.NamedArguments.FirstOrDefault(kp => kp.Key == name).Value.Value;
+
+        /// <summary>
+        ///     Retrieves an array attribute named argument based on its <paramref name="name"/>
+        /// </summary>
         public static IEnumerable<T> GetArrayNamedArgument<T>(this AttributeData attributeData, string name)
         {
             TypedConstant typedConstant = attributeData.NamedArguments.FirstOrDefault(kp => kp.Key == name).Value;
