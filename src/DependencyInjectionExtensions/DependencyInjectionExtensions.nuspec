@@ -2,7 +2,7 @@
 <package>
     <metadata>
         <id>DependencyInjectionExtensions</id>
-        <version>1.0.0-beta1</version>
+        <version>1.0.0-beta2</version>
         <title>Dependency Injection Extensions</title>
         <authors>Tiago Rios</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -10,7 +10,7 @@
         <projectUrl>https://github.com/tiagojsrios/DependencyInjectionExtensions</projectUrl>
         <repository type="git" url="https://github.com/tiagojsrios/DependencyInjectionExtensions" branch="main" />
         <description>Uses source generators to create IServiceCollection extension methods and register your dependencies into the container</description>
-        <releaseNotes>Implemented</releaseNotes>
+        <releaseNotes>Added support for multiple interface registration; Simplified attribute's usage</releaseNotes>
         <copyright>Copyright (c) 2021 Tiago Rios</copyright>
         <tags>DependencyInjection SourceGenerators</tags>
     </metadata>

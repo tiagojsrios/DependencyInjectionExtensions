@@ -4,7 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 namespace DependencyInjectionExtensions.Attributes
 {
     /// <summary>
-    ///     Attribute to be used on Services that should be added to the dependency injection container
+    ///     Attribute to be used on Services that should be added to the dependency injection container.
+    ///     By default, it registers all interfaces the Service implements
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public class ServiceDescriptorAttribute : Attribute
@@ -15,14 +16,13 @@ namespace DependencyInjectionExtensions.Attributes
         public ServiceLifetime ServiceLifetime { get; }
 
         /// <summary>
-        ///     Interface implementation of the service
+        ///     Collection with types that should not be registered
         /// </summary>
-        public Type Type { get; set; }
-
+        public Type[] ExcludedTypes { get; set; }
+        
         /// <summary>
         ///     <see cref="ServiceDescriptorAttribute"/> ctor
         /// </summary>
-        /// <param name="serviceLifetime"></param>
         public ServiceDescriptorAttribute(ServiceLifetime serviceLifetime)
         {
             ServiceLifetime = serviceLifetime;

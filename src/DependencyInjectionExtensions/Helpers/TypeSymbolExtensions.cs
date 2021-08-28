@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DependencyInjectionExtensions.Helpers
@@ -17,8 +18,14 @@ namespace DependencyInjectionExtensions.Helpers
         /// <summary>
         ///     Retrieves an attribute named argument based on its <paramref name="name"/>
         /// </summary>
-        public static T GetNamedArgument<T>(this AttributeData attributeData, string name)
-            => (T)attributeData.NamedArguments.FirstOrDefault(kp => kp.Key == name).Value.Value;
+        public static IEnumerable<T> GetArrayNamedArgument<T>(this AttributeData attributeData, string name)
+        {
+            TypedConstant typedConstant = attributeData.NamedArguments.FirstOrDefault(kp => kp.Key == name).Value;
+
+            return typedConstant.IsNull
+                ? Enumerable.Empty<T>()
+                : typedConstant.Values.Select(x => (T)x.Value);
+        }
 
         /// <summary>
         ///     Retrieves an attribute constructor argument based on its <paramref name="index"/>

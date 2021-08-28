@@ -43,17 +43,32 @@ namespace DependencyInjectionExtensions.Generators
                 ServiceLifetime serviceLifetime = type.GetAttributeByName(ServiceDescriptorAttributeName)
                     .GetConstructorArgument<ServiceLifetime>();
 
-                INamedTypeSymbol typePropertyAsTypeSymbol = type.GetAttributeByName(ServiceDescriptorAttributeName)
-                    .GetNamedArgument<INamedTypeSymbol>("Type");
-
                 services.Add(new ServiceProxyModel(type.GetAssemblyName(),
-                    type.ToString(),
-                    typePropertyAsTypeSymbol?.ToString(),
-                    serviceLifetime,
-                    typePropertyAsTypeSymbol?.IsUnboundGenericType ?? ((INamedTypeSymbol)type).IsGenericType));
+                    (type.ToString(), ((INamedTypeSymbol)type).IsGenericType),
+                    GetInterfaceImplementations(type),
+                    serviceLifetime));
             }
 
             context.AddSource("ServiceCollectionExtensions.generated.cs", GenerateServiceCollectionExtensionsClass(services));
+        }
+
+        private static IEnumerable<(string @interface, bool isOpenGeneric)> GetInterfaceImplementations(ITypeSymbol attributeAsTypeSymbol)
+        {
+            IEnumerable<(string @interface, bool isOpenGeneric)> typesToRegister = attributeAsTypeSymbol
+                .AllInterfaces
+                .Select(x => (x.ToString(), x.IsGenericType));
+
+            List<INamedTypeSymbol> excludedTypes = attributeAsTypeSymbol
+                .GetAttributeByName(ServiceDescriptorAttributeName)
+                .GetArrayNamedArgument<INamedTypeSymbol>("ExcludedTypes")?
+                .ToList();
+
+            if (excludedTypes is { Count: > 0 })
+            {
+                typesToRegister = typesToRegister.Except(excludedTypes.Select(x => (x?.ToString(), x?.IsUnboundGenericType ?? false)));
+            }
+
+            return typesToRegister;
         }
 
         private static SourceText GenerateServiceCollectionExtensionsClass(IEnumerable<ServiceProxyModel> services)
@@ -64,26 +79,7 @@ namespace DependencyInjectionExtensions.Generators
 
             foreach (var group in servicesGroupedByNamespace)
             {
-                string stringResult =
-$@"using Microsoft.Extensions.DependencyInjection;
-
-namespace {group.Key}.Extensions
-{{
-    public static partial class ServiceCollectionExtensions
-    {{
-        internal static IServiceCollection RegisterServices(this IServiceCollection services) => services.RegisterServicesFor{group.Key.ToSafeIdentifier()}();
-        
-        public static IServiceCollection RegisterServicesFor{group.Key.ToSafeIdentifier()}(this IServiceCollection services)
-        {{
-            {GetMethodBody(group.ToList())}
-
-            return services;
-        }}
-    }}
-}}
-
-";
-                stringBuilder.Append(stringResult);
+                stringBuilder.Append(GetClass(group.Key, group));
             }
 
             return SyntaxFactory.ParseCompilationUnit(stringBuilder.ToString())
@@ -91,13 +87,25 @@ namespace {group.Key}.Extensions
                 .GetText(Encoding.UTF8);
         }
 
-        private static string GetMethodBody(IEnumerable<ServiceProxyModel> services)
-        {
-            List<string> methodLines = services
-                .Select(service => service.GetDependencyInjectionEntry())
-                .ToList();
+        private static string GetClass(string @namespace, IEnumerable<ServiceProxyModel> services) =>
+$@"using Microsoft.Extensions.DependencyInjection;
 
-            return string.Join("\n", methodLines);
-        }
+namespace {@namespace}.Extensions
+{{
+    public static partial class ServiceCollectionExtensions
+    {{
+        internal static IServiceCollection RegisterServices(this IServiceCollection services) => services.RegisterServicesFor{@namespace.ToSafeIdentifier()}();
+        
+        public static IServiceCollection RegisterServicesFor{@namespace.ToSafeIdentifier()}(this IServiceCollection services)
+        {{
+            {GetMethodBody(services)}
+
+            return services;
+        }}
+    }}
+}}";
+
+        private static string GetMethodBody(IEnumerable<ServiceProxyModel> services)
+            => string.Join("\n", services.Select(s => s.GetDependencyInjectionEntry()));
     }
 }

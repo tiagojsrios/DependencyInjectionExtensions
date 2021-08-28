@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using DependencyInjectionExtensions.Helpers;
+using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DependencyInjectionExtensions.Generators.Models
@@ -14,14 +17,14 @@ namespace DependencyInjectionExtensions.Generators.Models
         public string AssemblyNamespace { get; set; }
 
         /// <summary>
-        ///     Service class name
+        ///     Tuple with type's name and flag whether type is generic or not
         /// </summary>
-        public string ClassName { get; set; }
+        public (string Name, bool IsGenericType) TypeInformation { get; set; }
 
         /// <summary>
-        ///     Service interface name
+        ///     Collection of tuples with interface's name and flag whether interface is generic or not
         /// </summary>
-        public string InterfaceName { get; set; }
+        public IEnumerable<(string Name, bool IsGenericType)> InterfaceImplementations { get; set; }
 
         /// <summary>
         ///     Lifetime the service should have into the Dependency Injection
@@ -29,20 +32,15 @@ namespace DependencyInjectionExtensions.Generators.Models
         public ServiceLifetime ServiceLifetime { get; set; }
 
         /// <summary>
-        ///     Is the service an open generic
-        /// </summary>
-        public bool IsOpenGeneric { get; set; }
-
-        /// <summary>
         ///     <see cref="ServiceProxyModel"/> ctor
         /// </summary>
-        public ServiceProxyModel(string assemblyNamespace, string className, string interfaceName, ServiceLifetime serviceLifetime, bool isOpenGeneric)
+        public ServiceProxyModel(string assemblyNamespace, (string name, bool isGenericType) typeInformation,
+            IEnumerable<(string name, bool isGenericType)> interfaceImplementations, ServiceLifetime serviceLifetime)
         {
             AssemblyNamespace = assemblyNamespace;
-            ClassName = className;
-            InterfaceName = interfaceName;
+            TypeInformation = typeInformation;
+            InterfaceImplementations = interfaceImplementations;
             ServiceLifetime = serviceLifetime;
-            IsOpenGeneric = isOpenGeneric;
         }
 
         /// <summary>
@@ -50,18 +48,28 @@ namespace DependencyInjectionExtensions.Generators.Models
         /// </summary>
         public string GetDependencyInjectionEntry()
         {
-            bool isInterfaceDeclared = !string.IsNullOrEmpty(InterfaceName);
+            bool isInterfaceDeclared = InterfaceImplementations.Any();
 
-            StringBuilder stringBuilder = new($"services.Add{ServiceLifetime}");
+            List<string> typeDeclaration = new();
 
-            string typeDeclaration = isInterfaceDeclared
-                ? $"{(IsOpenGeneric ? $"typeof({InterfaceName.Replace("<T>", "<>")}), typeof({ClassName.Replace("<T>", "<>")})" : $"{InterfaceName}, {ClassName}")}"
-                : $"{(IsOpenGeneric ? $"typeof({ClassName.Replace("<T>", "<>")})" : $"{ClassName}")}";
+            if (isInterfaceDeclared)
+            {
+                foreach (var (interfaceName, isInterfaceGeneric) in InterfaceImplementations)
+                {
+                    bool isOpenGeneric = TypeInformation.IsGenericType && isInterfaceGeneric;
 
-            return stringBuilder
-                .Append(IsOpenGeneric ? "(" : "<")
-                .Append(typeDeclaration)
-                .Append(IsOpenGeneric ? ");" : ">();")
+                    typeDeclaration.Add(
+                        $"services.Add{ServiceLifetime}{(isOpenGeneric ? $"(typeof({interfaceName.Replace("<T>", "<>")}), typeof({TypeInformation.Name.Replace("<T>", "<>")}));" : $"<{interfaceName}, {TypeInformation.Name}>();")}"
+                    );
+                }
+            }
+            else
+            {
+                typeDeclaration.Add($"services.Add{ServiceLifetime}{(TypeInformation.IsGenericType ? $"(typeof({TypeInformation.Name.Replace("<T>", "<>")}));" : $"<{TypeInformation.Name}>();")}");
+            }
+
+            return new StringBuilder()
+                .AppendMultiple(typeDeclaration)
                 .AppendLine()
                 .ToString();
         }
