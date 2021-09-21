@@ -1,25 +1,23 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace DependencyInjectionExtensions.Helpers
 {
-    /// <summary>
-    ///     Helper class to work with embedded resources
-    /// </summary>
     internal static class EmbeddedResourceHelper
     {
-        /// <summary>
-        ///     Gets the content of an embedded resource based on <paramref name="resourceName"/>
-        /// </summary>
-        public static string GetEmbeddedResource(string resourceName)
-        {
-            var assembly = Assembly.GetCallingAssembly();
-            resourceName = $"{assembly.GetName().Name}.{resourceName}";
+        public static string GetEmbeddedResource(string resourceName) => GetEmbeddedResource(Assembly.GetCallingAssembly(), resourceName);
 
-            Stream stream = assembly.GetManifestResourceStream(resourceName)
-                            ?? throw new ArgumentException("Resource could not be found", nameof(resourceName));
-            using StreamReader reader = new(stream);
+        public static string GetEmbeddedResource(Assembly assembly, string resourceName)
+        {
+            string fullResourceName = assembly.GetManifestResourceNames()
+                                          .Where(x => x.EndsWith(resourceName))
+                                          .OrderBy(x => x == resourceName ? -1 : x.EndsWith($".{resourceName}") ? 0 : 1)
+                                          .FirstOrDefault()
+                                      ?? throw new InvalidOperationException($"Resource '{resourceName}' could not be found");
+
+            using var reader = new StreamReader(assembly.GetManifestResourceStream(fullResourceName)!);
             return reader.ReadToEnd();
         }
     }

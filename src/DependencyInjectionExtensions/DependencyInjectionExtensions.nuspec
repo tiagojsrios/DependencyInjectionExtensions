@@ -2,7 +2,7 @@
 <package>
     <metadata>
         <id>DependencyInjectionExtensions</id>
-        <version>1.0.0-beta3</version>
+        <version>1.0.0-beta4</version>
         <title>Dependency Injection Extensions</title>
         <authors>Tiago Rios</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -10,7 +10,7 @@
         <projectUrl>https://github.com/tiagojsrios/DependencyInjectionExtensions</projectUrl>
         <repository type="git" url="https://github.com/tiagojsrios/DependencyInjectionExtensions" branch="main" />
         <description>Uses source generators to create IServiceCollection extension methods and register your dependencies into the container</description>
-        <releaseNotes>Changed .AddSingleton/Transient/Scoped to .TryAddSingleton/Transient/Scoped; Re-added Type property</releaseNotes>
+        <releaseNotes>Changed implementation of the attribute; Added proper testing to the project</releaseNotes>
         <copyright>Copyright (c) 2021 Tiago Rios</copyright>
         <tags>DependencyInjection SourceGenerators</tags>
     </metadata>

@@ -1,0 +1,71 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Resources\ClosedGenericRegistration.Input.cs" />
+    <Compile Remove="Resources\ClosedGenericRegistration.Result.cs" />
+    <Compile Remove="Resources\CustomExcludedTypesRegistration.Input.cs" />
+    <Compile Remove="Resources\CustomExcludedTypesRegistration.Result.cs" />
+    <Compile Remove="Resources\DefaultExcludedTypesRegistration.Input.cs" />
+    <Compile Remove="Resources\DefaultExcludedTypesRegistration.Result.cs" />
+    <Compile Remove="Resources\ImplementedInterfacesAndSelfRegistration.Input.cs" />
+    <Compile Remove="Resources\ImplementedInterfacesAndSelfRegistration.Result.cs" />
+    <Compile Remove="Resources\ManualRegistration.Input.cs" />
+    <Compile Remove="Resources\ManualRegistration.Result.cs" />
+    <Compile Remove="Resources\MultipleInterfacesRegistration.Input.cs" />
+    <Compile Remove="Resources\MultipleInterfacesRegistration.Result.cs" />
+    <Compile Remove="Resources\MultipleRegistrations.Input.cs" />
+    <Compile Remove="Resources\MultipleRegistrations.Result.cs" />
+    <Compile Remove="Resources\OpenGenericRegistration.Input.cs" />
+    <Compile Remove="Resources\OpenGenericRegistration.Result.cs" />
+    <Compile Remove="Resources\SimpleServiceRegistration.Input.cs" />
+    <Compile Remove="Resources\SimpleServiceRegistration.Result.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ClosedGenericRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\ClosedGenericRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\CustomExcludedTypesRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\CustomExcludedTypesRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\DefaultExcludedTypesRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\DefaultExcludedTypesRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\ImplementedInterfacesAndSelfRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\ImplementedInterfacesAndSelfRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\ManualRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\ManualRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\MultipleInterfacesRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\MultipleInterfacesRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\MultipleRegistrations.Input.cs" />
+    <EmbeddedResource Include="Resources\MultipleRegistrations.Result.cs" />
+    <EmbeddedResource Include="Resources\OpenGenericRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\OpenGenericRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\SimpleServiceRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\SimpleServiceRegistration.Result.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="3.11.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.11.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.SourceGenerators.Testing.XUnit" Version="1.1.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.11.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="3.1.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DependencyInjectionExtensions\DependencyInjectionExtensions.csproj" />
+  </ItemGroup>
+</Project>
