@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DependencyInjectionExtensions.Generators
+namespace DependencyInjectionExtensions.Models
 {
     /// <summary>
     ///     Proxy model that represents a service to be added into the Dependency Injection container
