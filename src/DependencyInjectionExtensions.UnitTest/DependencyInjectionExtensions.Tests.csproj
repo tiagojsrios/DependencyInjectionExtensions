@@ -7,45 +7,57 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Resources\ClosedGenericRegistration.Input.cs" />
-    <Compile Remove="Resources\ClosedGenericRegistration.Result.cs" />
-    <Compile Remove="Resources\CustomExcludedTypesRegistration.Input.cs" />
-    <Compile Remove="Resources\CustomExcludedTypesRegistration.Result.cs" />
-    <Compile Remove="Resources\DefaultExcludedTypesRegistration.Input.cs" />
-    <Compile Remove="Resources\DefaultExcludedTypesRegistration.Result.cs" />
-    <Compile Remove="Resources\ImplementedInterfacesAndSelfRegistration.Input.cs" />
-    <Compile Remove="Resources\ImplementedInterfacesAndSelfRegistration.Result.cs" />
-    <Compile Remove="Resources\ManualRegistration.Input.cs" />
-    <Compile Remove="Resources\ManualRegistration.Result.cs" />
-    <Compile Remove="Resources\MultipleInterfacesRegistration.Input.cs" />
-    <Compile Remove="Resources\MultipleInterfacesRegistration.Result.cs" />
-    <Compile Remove="Resources\MultipleRegistrations.Input.cs" />
-    <Compile Remove="Resources\MultipleRegistrations.Result.cs" />
-    <Compile Remove="Resources\OpenGenericRegistration.Input.cs" />
-    <Compile Remove="Resources\OpenGenericRegistration.Result.cs" />
-    <Compile Remove="Resources\SimpleServiceRegistration.Input.cs" />
-    <Compile Remove="Resources\SimpleServiceRegistration.Result.cs" />
+    <Compile Remove="Resources\Options\DefaultOptionsRegistration.Input.cs" />
+    <Compile Remove="Resources\Options\DefaultOptionsRegistration.Result.cs" />
+    <Compile Remove="Resources\Options\OptionsCustomSectionNameRegistration.Input.cs" />
+    <Compile Remove="Resources\Options\OptionsCustomSectionNameRegistration.Result.cs" />
+    <Compile Remove="Resources\Options\OptionsNoDataAnnotationsRegistration.Input.cs" />
+    <Compile Remove="Resources\Options\OptionsNoDataAnnotationsRegistration.Result.cs" />
+    <Compile Remove="Resources\Services\ClosedGenericRegistration.Input.cs" />
+    <Compile Remove="Resources\Services\ClosedGenericRegistration.Result.cs" />
+    <Compile Remove="Resources\Services\CustomExcludedTypesRegistration.Input.cs" />
+    <Compile Remove="Resources\Services\CustomExcludedTypesRegistration.Result.cs" />
+    <Compile Remove="Resources\Services\DefaultExcludedTypesRegistration.Input.cs" />
+    <Compile Remove="Resources\Services\DefaultExcludedTypesRegistration.Result.cs" />
+    <Compile Remove="Resources\Services\ImplementedInterfacesAndSelfRegistration.Input.cs" />
+    <Compile Remove="Resources\Services\ImplementedInterfacesAndSelfRegistration.Result.cs" />
+    <Compile Remove="Resources\Services\ManualRegistration.Input.cs" />
+    <Compile Remove="Resources\Services\ManualRegistration.Result.cs" />
+    <Compile Remove="Resources\Services\MultipleInterfacesRegistration.Input.cs" />
+    <Compile Remove="Resources\Services\MultipleInterfacesRegistration.Result.cs" />
+    <Compile Remove="Resources\Services\MultipleRegistrations.Input.cs" />
+    <Compile Remove="Resources\Services\MultipleRegistrations.Result.cs" />
+    <Compile Remove="Resources\Services\OpenGenericRegistration.Input.cs" />
+    <Compile Remove="Resources\Services\OpenGenericRegistration.Result.cs" />
+    <Compile Remove="Resources\Services\SimpleServiceRegistration.Input.cs" />
+    <Compile Remove="Resources\Services\SimpleServiceRegistration.Result.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\ClosedGenericRegistration.Input.cs" />
-    <EmbeddedResource Include="Resources\ClosedGenericRegistration.Result.cs" />
-    <EmbeddedResource Include="Resources\CustomExcludedTypesRegistration.Input.cs" />
-    <EmbeddedResource Include="Resources\CustomExcludedTypesRegistration.Result.cs" />
-    <EmbeddedResource Include="Resources\DefaultExcludedTypesRegistration.Input.cs" />
-    <EmbeddedResource Include="Resources\DefaultExcludedTypesRegistration.Result.cs" />
-    <EmbeddedResource Include="Resources\ImplementedInterfacesAndSelfRegistration.Input.cs" />
-    <EmbeddedResource Include="Resources\ImplementedInterfacesAndSelfRegistration.Result.cs" />
-    <EmbeddedResource Include="Resources\ManualRegistration.Input.cs" />
-    <EmbeddedResource Include="Resources\ManualRegistration.Result.cs" />
-    <EmbeddedResource Include="Resources\MultipleInterfacesRegistration.Input.cs" />
-    <EmbeddedResource Include="Resources\MultipleInterfacesRegistration.Result.cs" />
-    <EmbeddedResource Include="Resources\MultipleRegistrations.Input.cs" />
-    <EmbeddedResource Include="Resources\MultipleRegistrations.Result.cs" />
-    <EmbeddedResource Include="Resources\OpenGenericRegistration.Input.cs" />
-    <EmbeddedResource Include="Resources\OpenGenericRegistration.Result.cs" />
-    <EmbeddedResource Include="Resources\SimpleServiceRegistration.Input.cs" />
-    <EmbeddedResource Include="Resources\SimpleServiceRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\Options\OptionsNoDataAnnotationsRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\Options\OptionsNoDataAnnotationsRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\Options\OptionsCustomSectionNameRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\Options\OptionsCustomSectionNameRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\Options\DefaultOptionsRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\Options\DefaultOptionsRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\Services\ClosedGenericRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\Services\ClosedGenericRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\Services\CustomExcludedTypesRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\Services\CustomExcludedTypesRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\Services\DefaultExcludedTypesRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\Services\DefaultExcludedTypesRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\Services\ImplementedInterfacesAndSelfRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\Services\ImplementedInterfacesAndSelfRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\Services\ManualRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\Services\ManualRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\Services\MultipleInterfacesRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\Services\MultipleInterfacesRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\Services\MultipleRegistrations.Input.cs" />
+    <EmbeddedResource Include="Resources\Services\MultipleRegistrations.Result.cs" />
+    <EmbeddedResource Include="Resources\Services\OpenGenericRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\Services\OpenGenericRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\Services\SimpleServiceRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\Services\SimpleServiceRegistration.Result.cs" />
   </ItemGroup>
 
   <ItemGroup>

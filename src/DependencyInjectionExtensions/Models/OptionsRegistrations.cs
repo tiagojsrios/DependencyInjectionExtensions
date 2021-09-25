@@ -10,23 +10,27 @@ namespace DependencyInjectionExtensions.Models
 
         public string ConfigurationSectionName { get; set; }
 
-        public OptionsRegistrations(string name, string configurationSectionName)
+        public bool ValidateDataAnnotations { get; set; }
+
+        public OptionsRegistrations(string name, string configurationSectionName, bool validateDataAnnotations)
         {
             Name = name;
             ConfigurationSectionName = configurationSectionName;
+            ValidateDataAnnotations = validateDataAnnotations;
         }
 
         public static string RenderClass(string @namespace, IEnumerable<OptionsRegistrations> options) =>
-$@"using Microsoft.Extensions.DependencyInjection;
+$@"using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace {@namespace}.Extensions
 {{
     public static partial class ServiceCollectionExtensions
     {{
-        internal static IServiceCollection RegisterOptions(this IServiceCollection services) => services.RegisterServicesFor{@namespace.ToSafeIdentifier()}();
+        internal static IServiceCollection RegisterOptions(this IServiceCollection services, IConfiguration configuration) => services.RegisterOptionsFor{@namespace.ToSafeIdentifier()}(configuration);
         
-        public static IServiceCollection RegisterOptionsFor{@namespace.ToSafeIdentifier()}(this IServiceCollection services)
+        public static IServiceCollection RegisterOptionsFor{@namespace.ToSafeIdentifier()}(this IServiceCollection services, IConfiguration configuration)
         {{
             {string.Join("\n", options.Select(GetDependencyInjectionEntry))}
 
@@ -37,11 +41,17 @@ namespace {@namespace}.Extensions
         /// <summary>
         ///     Creates the string to be appended to the generated <see cref="IServiceCollection"/> extension method
         /// </summary>
-        public static string GetDependencyInjectionEntry(OptionsRegistrations service)
+        public static string GetDependencyInjectionEntry(OptionsRegistrations options)
         {
-            return $"services.AddOptions<{service.Name}>()" +
-                   $".Bind(configuration.GetSection({service.ConfigurationSectionName}))" +
-                   ".ValidateDataAnnotations();";
+            if (options.ValidateDataAnnotations)
+            {
+                return $"services.AddOptions<{options.Name}>()" +
+                    $".Bind(configuration.GetSection(\"{options.ConfigurationSectionName}\"))" +
+                    ".ValidateDataAnnotations();";
+            }
+
+            return $"services.AddOptions<{options.Name}>()" +
+                   $".Bind(configuration.GetSection(\"{options.ConfigurationSectionName}\"));";
         }
     }
 }

@@ -1,7 +1,10 @@
 ﻿using DependencyInjectionExtensions.Helpers;
 using DependencyInjectionExtensions.Models;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.Text;
 using System.Collections.Generic;
+using System.Text;
 
 namespace DependencyInjectionExtensions.Generators
 {
@@ -24,7 +27,28 @@ namespace DependencyInjectionExtensions.Generators
 
             foreach (var candidateTypeNode in syntaxReceiver.Candidates)
             {
+                SemanticModel model = context.Compilation.GetSemanticModel(candidateTypeNode.SyntaxTree);
+                INamedTypeSymbol type = ModelExtensions.GetDeclaredSymbol(model, candidateTypeNode) as INamedTypeSymbol;
+
+                if (type == null) { continue; }
+
+                AttributeData attribute = type.GetAttribute($"DependencyInjectionExtensions.Attributes.{OptionsAttribute}");
+
+                string configurationSectionName = attribute.GetNamedArgument<string>("ConfigurationSectionName");
+                bool validateDataAnnotations = attribute.GetNamedArgument<bool>("ValidateDataAnnotations");
+
+                options.Add(new OptionsRegistrations(type.ToDisplayString(), configurationSectionName ?? type.Name, validateDataAnnotations));
             }
+
+            context.AddSource("ServiceCollectionExtensions.generated.cs", GenerateOptionsServiceCollection(context.Compilation.AssemblyName, options));
+        }
+
+        private static SourceText GenerateOptionsServiceCollection(string @namespace, IEnumerable<OptionsRegistrations> options)
+        {
+            return SyntaxFactory
+                .ParseCompilationUnit(OptionsRegistrations.RenderClass(@namespace, options))
+                .NormalizeWhitespace()
+                .GetText(Encoding.UTF8);
         }
     }
 }

@@ -8,8 +8,8 @@ namespace DependencyInjectionExtensions.Attributes
     [AttributeUsage(AttributeTargets.Class)]
     internal class OptionsAttribute : Attribute
     {
-        public string Name { get; set; }
+        public string ConfigurationSectionName { get; set; }
 
-        public bool ValidateDataAnnotations { get; set; }
+        public bool ValidateDataAnnotations { get; set; } = true;
     }
 }
