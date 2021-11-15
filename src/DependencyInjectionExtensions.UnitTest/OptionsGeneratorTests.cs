@@ -18,7 +18,7 @@ namespace DependencyInjectionExtensions.Tests
         public Task OptionsCustomSectionNameRegistration() => RunEmbeddedResourceTest(nameof(OptionsCustomSectionNameRegistration));
 
         [Fact]
-        public Task OptionsNoDataAnnotationsRegistration() => RunEmbeddedResourceTest(nameof(OptionsNoDataAnnotationsRegistration));
+        public Task OptionsWithDataAnnotationsRegistration() => RunEmbeddedResourceTest(nameof(OptionsWithDataAnnotationsRegistration));
 
         private Task RunEmbeddedResourceTest(string testName, IDictionary<string, string>? placeholders = null)
         {
@@ -35,11 +35,13 @@ namespace DependencyInjectionExtensions.Tests
             {
                 TestState =
                 {
-                    AdditionalReferences = { "Microsoft.Extensions.Configuration.Abstractions.dll",
+                    AdditionalReferences = {
+                        "Microsoft.Extensions.Configuration.Abstractions.dll",
                         "Microsoft.Extensions.DependencyInjection.Abstractions.dll",
                         "Microsoft.Extensions.Options.dll",
                         "Microsoft.Extensions.Options.DataAnnotations.dll",
-                        "Microsoft.Extensions.Options.ConfigurationExtensions.dll" },
+                        "Microsoft.Extensions.Options.ConfigurationExtensions.dll"
+                    },
                     Sources = { input },
                     GeneratedSources =
                     {

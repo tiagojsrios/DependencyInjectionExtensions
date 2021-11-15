@@ -9,7 +9,7 @@ namespace TestProject.Extensions
         internal static IServiceCollection RegisterOptions(this IServiceCollection services, IConfiguration configuration) => services.RegisterOptionsForTestProject(configuration);
         public static IServiceCollection RegisterOptionsForTestProject(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddOptions<TestProject.Options.OptionsNoDataAnnotationsRegistration>().Bind(configuration.GetSection("OptionsNoDataAnnotationsRegistration"));
+            services.AddOptions<TestProject.Options.OptionsWithDataAnnotationsRegistration>().Bind(configuration.GetSection("OptionsWithDataAnnotationsRegistration")).ValidateDataAnnotations();
             return services;
         }
     }
