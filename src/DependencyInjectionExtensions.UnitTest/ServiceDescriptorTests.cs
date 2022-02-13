@@ -9,7 +9,7 @@ using Xunit;
 
 namespace DependencyInjectionExtensions.Tests
 {
-    public class DependencyInjectionGeneratorTest
+    public class ServiceDescriptorTests
     {
         [Theory]
         [InlineData("Singleton")]
@@ -57,7 +57,7 @@ namespace DependencyInjectionExtensions.Tests
                 expectedResult = expectedResult.Replace(key, value);
             }
 
-            return new CSharpSourceGeneratorTest<DependencyInjectionGenerator, XUnitVerifier>
+            return new CSharpSourceGeneratorTest<ServiceDescriptorGenerator, XUnitVerifier>
             {
                 TestState =
                 {
@@ -65,8 +65,8 @@ namespace DependencyInjectionExtensions.Tests
                     Sources = { input },
                     GeneratedSources =
                     {
-                        (typeof(DependencyInjectionGenerator), "ServiceDescriptorAttribute.generated.cs", EmbeddedResourceHelper.GetEmbeddedResource(typeof(DependencyInjectionGenerator).Assembly, "ServiceDescriptorAttribute.cs")),
-                        (typeof(DependencyInjectionGenerator), "ServiceCollectionExtensions.generated.cs", expectedResult)
+                        (typeof(ServiceDescriptorGenerator), "ServiceDescriptorAttribute.generated.cs", EmbeddedResourceHelper.GetEmbeddedResource(typeof(ServiceDescriptorGenerator).Assembly, "ServiceDescriptorAttribute.cs")),
+                        (typeof(ServiceDescriptorGenerator), "ServiceCollectionExtensions.generated.cs", expectedResult)
                     }
                 },
             }.RunAsync();

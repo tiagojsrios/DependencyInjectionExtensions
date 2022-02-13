@@ -13,24 +13,24 @@
     <Compile Remove="Resources\Options\OptionsCustomSectionNameRegistration.Result.cs" />
     <Compile Remove="Resources\Options\OptionsWithDataAnnotationsRegistration.Input.cs" />
     <Compile Remove="Resources\Options\OptionsWithDataAnnotationsRegistration.Result.cs" />
-    <Compile Remove="Resources\Services\ClosedGenericRegistration.Input.cs" />
-    <Compile Remove="Resources\Services\ClosedGenericRegistration.Result.cs" />
-    <Compile Remove="Resources\Services\CustomExcludedTypesRegistration.Input.cs" />
-    <Compile Remove="Resources\Services\CustomExcludedTypesRegistration.Result.cs" />
-    <Compile Remove="Resources\Services\DefaultExcludedTypesRegistration.Input.cs" />
-    <Compile Remove="Resources\Services\DefaultExcludedTypesRegistration.Result.cs" />
-    <Compile Remove="Resources\Services\ImplementedInterfacesAndSelfRegistration.Input.cs" />
-    <Compile Remove="Resources\Services\ImplementedInterfacesAndSelfRegistration.Result.cs" />
-    <Compile Remove="Resources\Services\ManualRegistration.Input.cs" />
-    <Compile Remove="Resources\Services\ManualRegistration.Result.cs" />
-    <Compile Remove="Resources\Services\MultipleInterfacesRegistration.Input.cs" />
-    <Compile Remove="Resources\Services\MultipleInterfacesRegistration.Result.cs" />
-    <Compile Remove="Resources\Services\MultipleRegistrations.Input.cs" />
-    <Compile Remove="Resources\Services\MultipleRegistrations.Result.cs" />
-    <Compile Remove="Resources\Services\OpenGenericRegistration.Input.cs" />
-    <Compile Remove="Resources\Services\OpenGenericRegistration.Result.cs" />
-    <Compile Remove="Resources\Services\SimpleServiceRegistration.Input.cs" />
-    <Compile Remove="Resources\Services\SimpleServiceRegistration.Result.cs" />
+    <Compile Remove="Resources\ServiceDescriptor\ClosedGenericRegistration.Input.cs" />
+    <Compile Remove="Resources\ServiceDescriptor\ClosedGenericRegistration.Result.cs" />
+    <Compile Remove="Resources\ServiceDescriptor\CustomExcludedTypesRegistration.Input.cs" />
+    <Compile Remove="Resources\ServiceDescriptor\CustomExcludedTypesRegistration.Result.cs" />
+    <Compile Remove="Resources\ServiceDescriptor\DefaultExcludedTypesRegistration.Input.cs" />
+    <Compile Remove="Resources\ServiceDescriptor\DefaultExcludedTypesRegistration.Result.cs" />
+    <Compile Remove="Resources\ServiceDescriptor\ImplementedInterfacesAndSelfRegistration.Input.cs" />
+    <Compile Remove="Resources\ServiceDescriptor\ImplementedInterfacesAndSelfRegistration.Result.cs" />
+    <Compile Remove="Resources\ServiceDescriptor\ManualRegistration.Input.cs" />
+    <Compile Remove="Resources\ServiceDescriptor\ManualRegistration.Result.cs" />
+    <Compile Remove="Resources\ServiceDescriptor\MultipleInterfacesRegistration.Input.cs" />
+    <Compile Remove="Resources\ServiceDescriptor\MultipleInterfacesRegistration.Result.cs" />
+    <Compile Remove="Resources\ServiceDescriptor\MultipleRegistrations.Input.cs" />
+    <Compile Remove="Resources\ServiceDescriptor\MultipleRegistrations.Result.cs" />
+    <Compile Remove="Resources\ServiceDescriptor\OpenGenericRegistration.Input.cs" />
+    <Compile Remove="Resources\ServiceDescriptor\OpenGenericRegistration.Result.cs" />
+    <Compile Remove="Resources\ServiceDescriptor\SimpleServiceRegistration.Input.cs" />
+    <Compile Remove="Resources\ServiceDescriptor\SimpleServiceRegistration.Result.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,38 +40,38 @@
     <EmbeddedResource Include="Resources\Options\OptionsCustomSectionNameRegistration.Result.cs" />
     <EmbeddedResource Include="Resources\Options\DefaultOptionsRegistration.Input.cs" />
     <EmbeddedResource Include="Resources\Options\DefaultOptionsRegistration.Result.cs" />
-    <EmbeddedResource Include="Resources\Services\ClosedGenericRegistration.Input.cs" />
-    <EmbeddedResource Include="Resources\Services\ClosedGenericRegistration.Result.cs" />
-    <EmbeddedResource Include="Resources\Services\CustomExcludedTypesRegistration.Input.cs" />
-    <EmbeddedResource Include="Resources\Services\CustomExcludedTypesRegistration.Result.cs" />
-    <EmbeddedResource Include="Resources\Services\DefaultExcludedTypesRegistration.Input.cs" />
-    <EmbeddedResource Include="Resources\Services\DefaultExcludedTypesRegistration.Result.cs" />
-    <EmbeddedResource Include="Resources\Services\ImplementedInterfacesAndSelfRegistration.Input.cs" />
-    <EmbeddedResource Include="Resources\Services\ImplementedInterfacesAndSelfRegistration.Result.cs" />
-    <EmbeddedResource Include="Resources\Services\ManualRegistration.Input.cs" />
-    <EmbeddedResource Include="Resources\Services\ManualRegistration.Result.cs" />
-    <EmbeddedResource Include="Resources\Services\MultipleInterfacesRegistration.Input.cs" />
-    <EmbeddedResource Include="Resources\Services\MultipleInterfacesRegistration.Result.cs" />
-    <EmbeddedResource Include="Resources\Services\MultipleRegistrations.Input.cs" />
-    <EmbeddedResource Include="Resources\Services\MultipleRegistrations.Result.cs" />
-    <EmbeddedResource Include="Resources\Services\OpenGenericRegistration.Input.cs" />
-    <EmbeddedResource Include="Resources\Services\OpenGenericRegistration.Result.cs" />
-    <EmbeddedResource Include="Resources\Services\SimpleServiceRegistration.Input.cs" />
-    <EmbeddedResource Include="Resources\Services\SimpleServiceRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\ServiceDescriptor\ClosedGenericRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\ServiceDescriptor\ClosedGenericRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\ServiceDescriptor\CustomExcludedTypesRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\ServiceDescriptor\CustomExcludedTypesRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\ServiceDescriptor\DefaultExcludedTypesRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\ServiceDescriptor\DefaultExcludedTypesRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\ServiceDescriptor\ImplementedInterfacesAndSelfRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\ServiceDescriptor\ImplementedInterfacesAndSelfRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\ServiceDescriptor\ManualRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\ServiceDescriptor\ManualRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\ServiceDescriptor\MultipleInterfacesRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\ServiceDescriptor\MultipleInterfacesRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\ServiceDescriptor\MultipleRegistrations.Input.cs" />
+    <EmbeddedResource Include="Resources\ServiceDescriptor\MultipleRegistrations.Result.cs" />
+    <EmbeddedResource Include="Resources\ServiceDescriptor\OpenGenericRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\ServiceDescriptor\OpenGenericRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\ServiceDescriptor\SimpleServiceRegistration.Input.cs" />
+    <EmbeddedResource Include="Resources\ServiceDescriptor\SimpleServiceRegistration.Result.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="3.11.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.11.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.SourceGenerators.Testing.XUnit" Version="1.1.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.11.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.0.1" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.SourceGenerators.Testing.XUnit" Version="1.1.1" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.0.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="3.1.0">
+    <PackageReference Include="coverlet.collector" Version="3.1.2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

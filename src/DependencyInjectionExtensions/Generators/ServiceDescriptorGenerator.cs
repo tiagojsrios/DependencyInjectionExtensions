@@ -14,7 +14,7 @@ namespace DependencyInjectionExtensions.Generators
     ///     Generates extension methods that will handle Dependency Injection registration in the <see cref="IServiceCollection"/> container
     /// </summary>
     [Generator]
-    public class DependencyInjectionGenerator : ISourceGenerator
+    public class ServiceDescriptorGenerator : ISourceGenerator
     {
         public const string ServiceDescriptorAttribute = nameof(ServiceDescriptorAttribute);
 
