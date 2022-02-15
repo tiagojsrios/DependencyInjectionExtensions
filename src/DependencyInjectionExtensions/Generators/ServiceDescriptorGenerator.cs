@@ -33,7 +33,7 @@ namespace DependencyInjectionExtensions.Generators
             foreach (var candidateTypeNode in syntaxReceiver.Candidates)
             {
                 SemanticModel model = context.Compilation.GetSemanticModel(candidateTypeNode.SyntaxTree);
-                INamedTypeSymbol type = ModelExtensions.GetDeclaredSymbol(model, candidateTypeNode) as INamedTypeSymbol;
+                INamedTypeSymbol? type = ModelExtensions.GetDeclaredSymbol(model, candidateTypeNode) as INamedTypeSymbol;
 
                 if (type == null) { continue; }
 
@@ -43,8 +43,8 @@ namespace DependencyInjectionExtensions.Generators
                 foreach (AttributeData attribute in attributes)
                 {
                     ServiceLifetime serviceLifetime = attribute.GetConstructorArgument<ServiceLifetime>(0);
-                    IEnumerable<INamedTypeSymbol> excludedTypes = attribute.GetArrayNamedArgument<INamedTypeSymbol>("ExcludedTypes");
-                    IEnumerable<INamedTypeSymbol> registeredTypes = attribute.GetArrayConstructorArgument<INamedTypeSymbol>(1);
+                    IEnumerable<INamedTypeSymbol>? excludedTypes = attribute.GetArrayNamedArgument<INamedTypeSymbol>("ExcludedTypes");
+                    IEnumerable<INamedTypeSymbol>? registeredTypes = attribute.GetArrayConstructorArgument<INamedTypeSymbol>(1);
 
                     if (registeredTypes == null)
                     {
@@ -73,6 +73,7 @@ namespace DependencyInjectionExtensions.Generators
                 );
             }
 
+            // TODO: What to do in case of context.Compilation.AssemblyName being null?
             context.AddSource("ServiceCollectionExtensions.generated.cs", GenerateServiceCollectionExtensionsClass(context.Compilation.AssemblyName, services));
         }
 

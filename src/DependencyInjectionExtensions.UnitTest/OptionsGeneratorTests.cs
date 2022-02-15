@@ -18,9 +18,9 @@ namespace DependencyInjectionExtensions.Tests
         public Task OptionsCustomSectionNameRegistration() => RunEmbeddedResourceTest(nameof(OptionsCustomSectionNameRegistration));
 
         [Fact]
-        public Task OptionsWithDataAnnotationsRegistration() => RunEmbeddedResourceTest(nameof(OptionsWithDataAnnotationsRegistration));
+        public Task OptionsWithoutDataAnnotationsValidation() => RunEmbeddedResourceTest(nameof(OptionsWithoutDataAnnotationsValidation));
 
-        private Task RunEmbeddedResourceTest(string testName, IDictionary<string, string>? placeholders = null)
+        private static Task RunEmbeddedResourceTest(string testName, IDictionary<string, string>? placeholders = null)
         {
             string input = EmbeddedResourceHelper.GetEmbeddedResource($"{testName}.Input.cs");
             string expectedResult = EmbeddedResourceHelper.GetEmbeddedResource($"{testName}.Result.cs");

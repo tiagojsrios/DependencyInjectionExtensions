@@ -31,7 +31,7 @@ namespace DependencyInjectionExtensions.Attributes
         /// <summary>
         ///     <see cref="ServiceDescriptorAttribute"/> ctor
         /// </summary>
-        public ServiceDescriptorAttribute(ServiceLifetime serviceLifetime, RegistrationTypeSelectors selector = RegistrationTypeSelectors.ImplementedInterfaces )
+        public ServiceDescriptorAttribute(ServiceLifetime serviceLifetime, RegistrationTypeSelectors selector = RegistrationTypeSelectors.ImplementedInterfaces)
         {
             ServiceLifetime = serviceLifetime;
             RegistrationTypeSelector = selector;

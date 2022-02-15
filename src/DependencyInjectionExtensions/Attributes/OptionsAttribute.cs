@@ -11,5 +11,10 @@ namespace DependencyInjectionExtensions.Attributes
         public string ConfigurationSectionName { get; set; }
 
         public bool ValidateDataAnnotations { get; set; }
+
+        public OptionsAttribute()
+        {
+            ValidateDataAnnotations = true;
+        }
     }
 }

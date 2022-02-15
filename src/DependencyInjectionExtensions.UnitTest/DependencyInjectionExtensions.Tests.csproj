@@ -11,8 +11,8 @@
     <Compile Remove="Resources\Options\DefaultOptionsRegistration.Result.cs" />
     <Compile Remove="Resources\Options\OptionsCustomSectionNameRegistration.Input.cs" />
     <Compile Remove="Resources\Options\OptionsCustomSectionNameRegistration.Result.cs" />
-    <Compile Remove="Resources\Options\OptionsWithDataAnnotationsRegistration.Input.cs" />
-    <Compile Remove="Resources\Options\OptionsWithDataAnnotationsRegistration.Result.cs" />
+    <Compile Remove="Resources\Options\OptionsWithoutDataAnnotationsValidation.Input.cs" />
+    <Compile Remove="Resources\Options\OptionsWithoutDataAnnotationsValidation.Result.cs" />
     <Compile Remove="Resources\ServiceDescriptor\ClosedGenericRegistration.Input.cs" />
     <Compile Remove="Resources\ServiceDescriptor\ClosedGenericRegistration.Result.cs" />
     <Compile Remove="Resources\ServiceDescriptor\CustomExcludedTypesRegistration.Input.cs" />
@@ -34,8 +34,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Options\OptionsWithDataAnnotationsRegistration.Input.cs" />
-    <EmbeddedResource Include="Resources\Options\OptionsWithDataAnnotationsRegistration.Result.cs" />
+    <EmbeddedResource Include="Resources\Options\OptionsWithoutDataAnnotationsValidation.Input.cs" />
+    <EmbeddedResource Include="Resources\Options\OptionsWithoutDataAnnotationsValidation.Result.cs" />
     <EmbeddedResource Include="Resources\Options\OptionsCustomSectionNameRegistration.Input.cs" />
     <EmbeddedResource Include="Resources\Options\OptionsCustomSectionNameRegistration.Result.cs" />
     <EmbeddedResource Include="Resources\Options\DefaultOptionsRegistration.Input.cs" />

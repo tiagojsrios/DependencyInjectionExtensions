@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TestProject.Options
 {
-    [Options(ValidateDataAnnotations = true)]
-    public class OptionsWithDataAnnotationsRegistration
+    [Options(ValidateDataAnnotations = false)]
+    public class OptionsWithoutDataAnnotationsValidation
     {
         public string ConnectionString { get; set; } = null!;
     }

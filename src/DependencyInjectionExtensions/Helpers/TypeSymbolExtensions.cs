@@ -25,46 +25,41 @@ namespace DependencyInjectionExtensions.Helpers
         /// <summary>
         ///     Retrieves an attribute constructor argument based on its <paramref name="index"/>
         /// </summary>
-        public static T GetConstructorArgument<T>(this AttributeData attributeData, int index)
+        public static T? GetConstructorArgument<T>(this AttributeData attributeData, int index)
         {
-            return attributeData.ConstructorArguments.Length > index && !attributeData.ConstructorArguments[index].IsNull ? (T)attributeData.ConstructorArguments[index].Value : default;
+            return attributeData.ConstructorArguments.Length > index 
+                && !attributeData.ConstructorArguments[index].IsNull ? (T)attributeData.ConstructorArguments[index].Value! : default;
         }
 
         /// <summary>
         ///     Retrieves an attribute constructor array argument based on its <paramref name="index"/>
         /// </summary>
-        public static IEnumerable<T> GetArrayConstructorArgument<T>(this AttributeData attributeData, int index)
+        public static IEnumerable<T>? GetArrayConstructorArgument<T>(this AttributeData attributeData, int index)
         {
             if (attributeData.ConstructorArguments.Length <= index) { return null; }
 
             TypedConstant typedConstant = attributeData.ConstructorArguments[index];
-            return typedConstant.Kind == TypedConstantKind.Array ? typedConstant.Values.Select(x => (T)x.Value) : null;
+            return typedConstant.Kind == TypedConstantKind.Array ? typedConstant.Values.Select(x => (T)x.Value!) : null;
         }
 
         /// <summary>
         ///     Retrieves an attribute named argument based on its <paramref name="name"/>
         /// </summary>
-        public static T GetNamedArgument<T>(this AttributeData attributeData, string name)
+        public static T? GetNamedArgument<T>(this AttributeData attributeData, string name)
         {
             TypedConstant typedConstant = attributeData.NamedArguments.FirstOrDefault(kp => kp.Key == name).Value;
-            return !typedConstant.IsNull ? (T)typedConstant.Value : default;
+            return !typedConstant.IsNull ? (T?)typedConstant.Value : default;
         }
 
         /// <summary>
         ///     Retrieves an attribute named array argument based on its <paramref name="name"/>
         /// </summary>
-        public static IEnumerable<T> GetArrayNamedArgument<T>(this AttributeData attributeData, string name)
+        public static IEnumerable<T>? GetArrayNamedArgument<T>(this AttributeData attributeData, string name)
         {
             TypedConstant typedConstant = attributeData.NamedArguments.FirstOrDefault(kp => kp.Key == name).Value;
 
-            return typedConstant.Kind == TypedConstantKind.Array ? typedConstant.Values.Select(x => (T)x.Value) : null;
+            return typedConstant.Kind == TypedConstantKind.Array ? typedConstant.Values.Select(x => (T)x.Value!) : null;
         }
-
-        /// <summary>
-        ///     Retrieves the assembly name where <paramref name="typeSymbol"/> is located
-        /// </summary>
-        public static string GetAssemblyName(this ITypeSymbol typeSymbol)
-            => typeSymbol.ContainingAssembly.Name;
 
         /// <summary>
         ///     Retrieves the assembly name where <paramref name="typeSymbol"/> is located
